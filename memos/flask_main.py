@@ -81,10 +81,6 @@ def index():
   return flask.render_template('index.html')
 
 
-@app.route("/jstest")
-def jstest():
-    return flask.render_template('jstest.html')
-
 # We don't have an interface for creating memos yet
 # @app.route("/create")
 # def create():
