@@ -74,7 +74,6 @@ except:
 @app.route("/")
 @app.route("/index")
 def index():
-  app.logger.debug("Main page entry")
   g.memos = get_memos()
   for memo in g.memos: 
       app.logger.debug("Memo: " + str(memo))
@@ -89,14 +88,11 @@ def create():
 
 @app.route("/_submit", methods=["POST"])
 def submit():
-    app.logger.debug("Creating Memo")
     text = request.form["memo"]
     date = arrow.get(request.form["date"]).isoformat()
     memo = { "type": "dated_memo", 
             "date":  date,
             "text": text}
-
-    app.logger.debug(memo)
     collection.insert(memo)
     return flask.render_template('create.html')
 
