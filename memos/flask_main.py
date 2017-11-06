@@ -80,12 +80,39 @@ def index():
       app.logger.debug("Memo: " + str(memo))
   return flask.render_template('index.html')
 
+# Interface for creating a memo
+@app.route("/create")
+def create():
+     app.logger.debug("Create")
+     return flask.render_template('create.html')
 
-# We don't have an interface for creating memos yet
-# @app.route("/create")
-# def create():
-#     app.logger.debug("Create")
-#     return flask.render_template('create.html')
+# Route to send memos to from create
+
+@app.route("/_submit", methods=["POST"])
+def submit():
+    app.logger.debug("Creating Memo")
+    text = request.form["memo"]
+    date = arrow.get(request.form["date"]).isoformat()
+    memo = { "type": "dated_memo", 
+            "date":  date,
+            "text": text}
+
+    app.logger.debug(memo)
+    collection.insert(memo)
+    return flask.render_template('create.html')
+
+@app.route("/_delete_memo", methods=["POST"])
+def delete_memo():
+    app.logger.debug("Deleting Memo")
+    delmem = request.form["todelete"].split(",")
+    date = delmem[0]
+    text = delmem[1]
+    app.logger.debug(delmem)
+    collection.delete_one({"date": date, "text": text})
+    g.memos = get_memos()
+    for memo in g.memos: 
+      app.logger.debug("Memo: " + str(memo))
+    return flask.render_template("index.html")
 
 
 @app.errorhandler(404)

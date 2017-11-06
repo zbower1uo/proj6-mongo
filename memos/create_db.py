@@ -13,8 +13,10 @@ import config
 CONFIG = config.configuration()
 
 MONGO_ADMIN_URL = "mongodb://{}:{}@{}:{}/admin".format(
-    CONFIG.ADMIN_USER,
-    CONFIG.ADMIN_PW,
+    CONFIG.DB_USER,
+    CONFIG.DB_USER_PW,
+    #CONFIG.ADMIN_USER,
+    #CONFIG.ADMIN_PW,
     CONFIG.DB_HOST, 
     CONFIG.DB_PORT)
 

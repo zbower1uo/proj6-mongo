@@ -13,9 +13,9 @@
   <!-- Bootstrap includes javascript and css  (must follow jquery) -->
   <link rel="stylesheet"
    href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
-   <script
+  <script
     src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js">
-</script>
+  </script>
 
    <!-- Our own style sheet -->
    <link rel="stylesheet" href="/static/css/memos.css" />
@@ -38,16 +38,29 @@
 
 <h1>Memos</h1>
 
+<a href="{{url_for('create')}}">Create New Memo</a> 
+<br>
+<br>
+
 {% if g.memos %}
     {% for memo in g.memos %}
   <div class="memo">
   <div class="row">
   <div class="col-md-2">
+    <form id="button" method="POST" action="/_delete_memo">
+      <button type="submit" name="todelete"  value="{{memo.date + ',' + memo.text}}">Delete</button>   
+    </form>
+  </div>
+  <div class="col-md-2">
     {{ memo.date | humanize }}
   </div>
+  <br>
+  <br>
   <div class="col-md-10">
     {{ memo.text }}
   </div>
+  <br>
+  <br>
   </div> <!-- row -->
   </div> <!-- memo -->
   {% endfor %}
@@ -55,8 +68,12 @@
   <p>No memos for you. </p>  
 {% endif %}
 
- 
-
 </div> <!-- container -->
+
 </body>
 </html>
+
+
+
+
+
