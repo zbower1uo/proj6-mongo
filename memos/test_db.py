@@ -1,3 +1,4 @@
+import nose
 import arrow
 import pymongo
 from pymongo import MongoClient

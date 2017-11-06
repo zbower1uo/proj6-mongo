@@ -29,7 +29,7 @@
 {% with messages = get_flashed_messages() %}
   {% if messages %}
     <ul class=flashes>
-    {% for message in messages %}
+    {% for message in messages | sort(attribute='date') %}
       <li>{{ message }}</li>
     {% endfor %}
     </ul>
